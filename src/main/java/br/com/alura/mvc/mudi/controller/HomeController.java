@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 public class HomeController {
