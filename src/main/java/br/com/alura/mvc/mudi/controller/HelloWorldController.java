@@ -1,16 +1,15 @@
 package br.com.alura.mvc.mudi.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HelloWorldController {
 
     @GetMapping("/hello")
-    public String helloWorld(HttpServletRequest request) {
-        request.setAttribute("mensagem", "Hello, World!");
+    public String helloWorld(Model model) {
+        model.addAttribute("mensagem", "Hello, World!");
         return "hello-world";
     }
 }
