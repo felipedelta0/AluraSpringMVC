@@ -25,4 +25,7 @@ public class Pedido {
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
 }
