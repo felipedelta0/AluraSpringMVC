@@ -27,7 +27,7 @@
             </a>
         </nav>
 
-        <div class="card" th:each="pedido : ${pedidos}">
+        <div class="card mb-3" th:each="pedido : ${pedidos}">
             <div class="card-header" th:text="${pedido.nomeProduto}">NOME DO PRODUTO</div>
 
             <div class="card-body">
