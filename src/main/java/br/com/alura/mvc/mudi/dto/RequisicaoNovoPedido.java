@@ -4,12 +4,18 @@ import br.com.alura.mvc.mudi.model.Pedido;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+import javax.validation.constraints.NotBlank;
+
+@Getter @Setter
 public class RequisicaoNovoPedido {
 
+    @NotBlank(message = "Nome do Produto não pode ser vazio.")
     private String nomeProduto;
+
+    @NotBlank
     private String urlProduto;
+
+    @NotBlank
     private String urlImagem;
     private String descricaoProduto;
 
