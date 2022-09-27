@@ -38,7 +38,8 @@ public class WebSecurityConfig {
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
-                .logout(logout -> logout.logoutUrl("/logout"));
+                .logout(logout -> logout.logoutUrl("/logout"))
+                .csrf().disable();
 
         return http.build();
     }
@@ -58,8 +59,8 @@ public class WebSecurityConfig {
                 .build();
 
         JdbcUserDetailsManager users = new JdbcUserDetailsManager(dataSource);
-        users.createUser(admin);
-        users.createUser(user);
+//        users.createUser(admin);
+//        users.createUser(user);
         return users;
     }
 }
