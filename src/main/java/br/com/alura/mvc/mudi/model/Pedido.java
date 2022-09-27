@@ -17,6 +17,10 @@ public class Pedido {
     private BigDecimal valorNegociado;
     private LocalDate dataEntrega;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user")
+    private User user;
+
     @Column(columnDefinition = "TEXT")
     private String urlProduto;
 
