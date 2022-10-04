@@ -30,6 +30,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/home/**")
+                    .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -38,7 +40,10 @@ public class WebSecurityConfig {
                         .defaultSuccessUrl("/usuario/pedido", true)
                         .permitAll()
                 )
-                .logout(logout -> logout.logoutUrl("/logout"))
+                .logout(logout -> {
+                    logout.logoutUrl("/logout")
+                            .logoutSuccessUrl("/home");
+                })
                 .csrf().disable();
 
         return http.build();
