@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -23,6 +24,9 @@ public class Pedido {
     @JoinColumn(name = "user")
     @JsonBackReference
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.LAZY)
+    private List<Oferta> ofertas;
 
     @Column(columnDefinition = "TEXT")
     private String urlProduto;

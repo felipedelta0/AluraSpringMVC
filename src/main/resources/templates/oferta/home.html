@@ -1,61 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="~{base :: head}"></head>
-<body>
+<body onload="onLoad()">
     <div th:replace="~{base :: logo}"></div>
 
-    <div class="container">
+    <div class="container" id="ofertas">
+        <div th:replace="~{base::titulo('Faça sua oferta')}"></div>
 
-        <div th:replace="~{base::titulo('Meus Pedidos')}"></div>
-
-        <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-            <div class="navbar-nav">
-                <a th:href="@{/usuario/pedido/}" th:classappend="${status} == null ? 'active'" class="nav-item nav-link">Todos</a>
-                <a th:href="@{/usuario/pedido/aguardando}" th:classappend="${status} == 'aguardando' ? 'active'" class="nav-item nav-link">Aguardando</a>
-                <a th:href="@{/usuario/pedido/aprovado}" th:classappend="${status} == 'aprovado' ? 'active'" class="nav-item nav-link">Aprovado</a>
-                <a th:href="@{/usuario/pedido/entregue}" th:classappend="${status} == 'entregue' ? 'active'" class="nav-item nav-link">Entregue</a>
-            </div>
-            
-            <a href="/pedido/formulario">
-                <button class="btn btn-outline-secondary my-2 my-sm-0">Novo</button>
-            </a>
-        </nav>
-
-        <div class="card mb-3" th:each="pedido : ${pedidos}">
-
-            <th:block th:switch="${pedido.status.name()}">
-                <div th:case="'AGUARDANDO'" class="card-header alert alert-warning" th:text="${pedido.nomeProduto}">NOME DO PRODUTO</div>
-                <div th:case="'APROVADO'" class="card-header alert alert-success" th:text="${pedido.nomeProduto}">NOME DO PRODUTO</div>
-                <div th:case="'ENTREGUE'" class="card-header alert alert-dark" th:text="${pedido.nomeProduto}">NOME DO PRODUTO</div>
-            </th:block>
+        <div class="card mb-3" v-for="pedido in pedidos">
+            <div class="card-header alert alert-dark">{{ pedido.nomeProduto }}</div>
 
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-sm-8 mb-3">
                         <div class="row">
-                            <div class="col-md-5">Valor: <span th:if="${pedido.valorNegociado} != null" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.valorNegociado, 3, 'POINT', 2, 'COMMA')}">VALOR DO PRODUTO</span></div>
-                            <div class="col-md-7">Data da Entrega: <span th:text="${#temporals.format(pedido.dataEntrega, 'dd/MM/yyyy')}">DATA DE ENTREGA</span></div>
+                            <div class="col-md-5">Valor: <input /></div>
+                            <div class="col-md-7">Data da Entrega: <input /></div>
                         </div>
 
                         <div>Produto</div>
-                        <div><input class="form-control" value="URL do Produto" th:value="${pedido.urlProduto}"></div>
+                        <div><a v-bind:href="pedido.urlProduto">{{ pedido.nomeProduto }}</a></div>
 
                         <div>Descrição</div>
                         <div>
-                            <textarea class="form-control" th:text="${pedido.descricao}" />
+                            <textarea class="form-control">{{ pedido.descricao }}</textarea>
                         </div>
                     </div>
 
                     <div class="col-12 col-sm-4">
                         <div>
-                            <img class="img-thumbnail" th:src="${pedido.urlImagem}" alt="URL da Imagem">
+                            <img class="img-thumbnail" v-bind:src="pedido.urlImagem" alt="URL da Imagem">
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
+    <script>
+        function onLoad() {
+            var app = new Vue({
+                el: '#ofertas',
+                data: {
+                    pedidos: []
+                },
+                mounted() {
+                    axios
+                        .get('http://localhost:8080/api/pedidos/aguardando')
+                        .then(response => (this.pedidos = response.data))
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>
