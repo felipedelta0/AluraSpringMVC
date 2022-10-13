@@ -15,7 +15,7 @@ public class Oferta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal valor;
+    private BigDecimal valorNegociado;
     private LocalDate dataEntrega;
     private String comentario;
 

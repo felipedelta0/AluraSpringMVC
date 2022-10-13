@@ -15,7 +15,7 @@ public class RequisicaoNovaOferta {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private Long pedidoId;
-    private String valor;
+    private String valorNegociado;
     private String dataEntrega;
     private String comentario;
 
@@ -23,7 +23,7 @@ public class RequisicaoNovaOferta {
         Oferta oferta = new Oferta();
         oferta.setComentario(this.comentario);
         oferta.setDataEntrega(LocalDate.parse(this.dataEntrega, formatter));
-        oferta.setValor(new BigDecimal(this.valor));
+        oferta.setValorNegociado(new BigDecimal(this.valorNegociado));
         return oferta;
     }
 }
