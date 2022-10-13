@@ -26,6 +26,7 @@ public class Pedido {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Oferta> ofertas;
 
     @Column(columnDefinition = "TEXT")
